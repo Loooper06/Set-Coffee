@@ -1,13 +1,27 @@
+"use client";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 import Image from "next/image";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [fixedTop, setFixTop] = useState(false);
+
+  useEffect(() => {
+    const fixNavbarToTop = () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll >= 120) setFixTop(true);
+      else setFixTop(false);
+    };
+    window.addEventListener("scroll",fixNavbarToTop);
+    return () => window.removeEventListener("scroll", fixNavbarToTop);
+  }, []);
+
   return (
-    <nav className={styles.navbar}>
+    <nav className={fixedTop ? styles.navbar_fixed : styles.navbar}>
       <main>
         <div>
           <Link href={"/"}>
