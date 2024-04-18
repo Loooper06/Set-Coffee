@@ -7,7 +7,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({ isLogin }) => {
   const [fixedTop, setFixTop] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Navbar = () => {
       if (currentScroll >= 120) setFixTop(true);
       else setFixTop(false);
     };
-    window.addEventListener("scroll",fixNavbarToTop);
+    window.addEventListener("scroll", fixNavbarToTop);
     return () => window.removeEventListener("scroll", fixNavbarToTop);
   }, []);
 
@@ -53,25 +53,25 @@ const Navbar = () => {
           <li>
             <Link href="/rules">قوانین</Link>
           </li>
-          <li>
-            <Link href="/login-register">ورود / عضویت</Link>
-          </li>
-
-          {/* start my account dropdown */}
-          <div className={styles.dropdown}>
-            <Link href="/p-user">
-              <MdOutlineKeyboardArrowDown className={styles.dropdown_icons} />
-              حساب کاربری
-            </Link>
-            <div className={styles.dropdown_content}>
-              <Link href="/p-user/orders">سفارشات</Link>
-              <Link href="/p-user/tickets">تیکت های پشتیبانی</Link>
-              <Link href="/p-user/comments">کامنت ها</Link>
-              <Link href="/p-user/wishlist">علاقه مندی ها</Link>
-              <Link href="/p-user/account-details">جزییات حساب</Link>
+          {isLogin ? (
+            <div className={styles.dropdown}>
+              <Link href="/p-user">
+                <MdOutlineKeyboardArrowDown className={styles.dropdown_icons} />
+                حساب کاربری
+              </Link>
+              <div className={styles.dropdown_content}>
+                <Link href="/p-user/orders">سفارشات</Link>
+                <Link href="/p-user/tickets">تیکت های پشتیبانی</Link>
+                <Link href="/p-user/comments">کامنت ها</Link>
+                <Link href="/p-user/wishlist">علاقه مندی ها</Link>
+                <Link href="/p-user/account-details">جزییات حساب</Link>
+              </div>
             </div>
-          </div>
-          {/* end my account dropdown */}
+          ) : (
+            <li>
+              <Link href="/login-register">ورود / عضویت</Link>
+            </li>
+          )}
         </ul>
         <div className={styles.navbar_icons}>
           <Link href="/cart">

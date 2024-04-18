@@ -1,5 +1,7 @@
 import { hash, compare, genSalt } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
+import UserModel from "@/models/User";
+import connectDb from "@/configs/db";
 
 const hashPassword = async (pass) => {
   const salt = await genSalt(12);
@@ -14,7 +16,7 @@ const verifyPassword = async (pass, hashedPassword) => {
 
 const genrateAccessToken = (data) => {
   const token = sign({ ...data }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "60s",
+    expiresIn: "60d",
   });
   return token;
 };
@@ -52,6 +54,19 @@ const valiadtePassword = (password) => {
   return pattern.test(password);
 };
 
+const authUser = async (token) => {
+  let user = null;
+  if (token) {
+    const payload = verifyAccessToken(token.value);
+    if (payload) {
+      await connectDb();
+      user = await UserModel.findOne({ email: payload.email });
+      user = JSON.parse(JSON.stringify(user));
+    }
+  }
+  return user;
+};
+
 export {
   hashPassword,
   verifyPassword,
@@ -61,4 +76,5 @@ export {
   valiadteEmail,
   valiadtePhone,
   valiadtePassword,
+  authUser,
 };
