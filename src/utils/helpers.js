@@ -1,7 +1,7 @@
-const { default: swal } = require("sweetalert");
+const Swal = require("sweetalert");
 
 const showSwal = (text, icon, buttons) => {
-  swal({ text, icon, buttons });
+  Swal({ text, icon, buttons });
 };
 
 export { showSwal };

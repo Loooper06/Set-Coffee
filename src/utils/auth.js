@@ -29,7 +29,7 @@ const verifyAccessToken = async (token) => {
   }
 };
 
-const genRefreshToken = async (data) => {
+const genRefreshToken = (data) => {
   const token = sign({ ...data }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "15d",
   });

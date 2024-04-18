@@ -43,6 +43,11 @@ export async function POST(req) {
     const access_token = genrateAccessToken({ email: user.email });
     const refresh_token = genRefreshToken({ email: user.email });
 
+    await UserModel.findOneAndUpdate(
+      { email: user.email },
+      { $set: { refreshToken: refresh_token } }
+    );
+
     return Response.json(
       { message: "ورود با موفقیت انجام شد" },
       {
