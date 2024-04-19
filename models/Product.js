@@ -34,6 +34,7 @@ const schema = new mongoose.Schema(
     score: {
       type: Number,
       required: false,
+      default: 5,
     },
     tags: {
       type: [String],
