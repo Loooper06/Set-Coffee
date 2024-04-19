@@ -12,7 +12,7 @@ export default async function Home() {
   const user = await authUser(token || "");
   return (
     <>
-      <Navbar isLogin={user} />
+      <Navbar isLogin={user ? true : false} />
       <Banner />
       <Latest />
       <Promote />

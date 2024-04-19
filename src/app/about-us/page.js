@@ -1,6 +1,7 @@
 import styles from "@/styles/aboutUs.module.css";
 import Navbar from "@/components/modules/Navbar/Navbar";
 import Footer from "@/components/modules/Footer/Footer";
+import BreadCrumb from "@/components/modules/Breadcrumb/Breadcrumb";
 import { authUser } from "@/utils/auth";
 import { cookies } from "next/headers";
 
@@ -10,8 +11,8 @@ const page = async () => {
 
   return (
     <>
-      <Navbar isLogin={user} />
-      {/* <Breadcrumb route={"درباره ما"} /> */}
+      <Navbar isLogin={user ? true : false} />
+      <BreadCrumb route={"درباره ما"} />
       <div className={styles.container}>
         <section>
           <div>

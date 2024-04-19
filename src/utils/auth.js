@@ -61,7 +61,6 @@ const authUser = async (token) => {
     if (payload) {
       await connectDb();
       user = await UserModel.findOne({ email: payload.email });
-      user = JSON.parse(JSON.stringify(user));
     }
   }
   return user;
