@@ -35,7 +35,6 @@ export async function POST(req) {
     return Response.json({ message: err }, { status: 401 });
   }
 }
-
 export async function GET() {
   try {
     const products = await ProductModel.find({}).populate("comments");
